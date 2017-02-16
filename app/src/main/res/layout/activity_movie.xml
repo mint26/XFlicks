@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/activity_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.when0matters.xflicks.MovieActivity">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true" />
+
+        <fragment
+            android:id="@+id/youtubeFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.google.android.youtube.player.YouTubePlayerFragment">
+        </fragment>
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:srcCompat="@mipmap/ic_launcher"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:id="@+id/ivMovieVideo"-->
+            <!--android:scaleType="fitCenter"-->
+
+            <!--/>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBottom="@id/ivMovieVideo"-->
+            <!--&gt;-->
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:srcCompat="@drawable/ic_action_play"-->
+            <!--android:id="@+id/ivPlayButton"-->
+            <!--android:scaleType="center" />-->
+
+        <!--</RelativeLayout>-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/llTitle"
+            android:layout_below="@+id/youtubeFragment"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="@dimen/border_margin">
+
+            <TextView
+                android:text="Fight Club"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvMovieTitle"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginLeft="@dimen/border_margin"
+                android:layout_marginRight="@dimen/border_margin"
+                android:layout_marginTop="@dimen/border_margin"
+                android:layout_width="150dp" />
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ratingBar"
+                android:numStars="5"
+                android:rating="2.3"
+                style="@style/foodRatingBar"
+                android:layout_margin="0dp"
+                android:indeterminate="false"
+                android:minHeight="59dp"
+                android:paddingLeft="5dp" />
+
+        </LinearLayout>
+
+        <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/youtubeFragment"
+        android:layout_toRightOf="@id/llTitle"
+        android:layout_marginBottom="@dimen/border_margin"
+        android:id="@+id/tableLayout"
+        android:layout_marginLeft="@dimen/border_margin"
+        android:layout_marginRight="@dimen/border_margin"
+        android:layout_marginTop="@dimen/border_margin">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Release"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvReleaseLabel" />
+
+            <TextView
+                android:text="1999-10-12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvRelease"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="Genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvGenreLabel" />
+            <TextView
+                android:text="Drama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvGenre"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="Language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLanguageLabel"
+                android:paddingRight="@dimen/border_margin" />
+            <TextView
+                android:text="English"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLanguage"
+                android:layout_weight="1"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:text="Status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvStatusLabel" />
+            <TextView
+                android:text="Released"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvStatus"
+                android:layout_weight="1"/>
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:text='A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.'
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="@dimen/border_margin"
+        android:id="@+id/tvOverview"
+        android:layout_marginLeft="@dimen/border_margin"
+        android:layout_marginRight="@dimen/border_margin" />
+
+
+
+    </RelativeLayout>
+</ScrollView>
