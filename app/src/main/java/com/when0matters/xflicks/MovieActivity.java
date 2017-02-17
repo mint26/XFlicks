@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.when0matters.xflicks.models.Movie;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -47,6 +48,8 @@ public class MovieActivity extends AppCompatActivity {
 
     Context mContext;
 
+    final static String APIKEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +64,10 @@ public class MovieActivity extends AppCompatActivity {
         setPanelVisibility(View.GONE);
         if (selectedMovieId != -1){
 
-            String url=String.format("https://api.themoviedb.org/3/movie/%s?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US", String.valueOf(selectedMovieId));
+            String url=String.format("https://api.themoviedb.org/3/movie/%s?api_key=%s&language=en-US", String.valueOf(selectedMovieId), APIKEY);
+            String movieUrl = String.format("https://api.themoviedb.org/3/movie/%s/videos?api_key=%s&language=en-US", String.valueOf(selectedMovieId),APIKEY);
             task = new GetMovieFromAPITask();
-            task.execute(new String[]{url});
+            task.execute(new String[]{url, movieUrl});
 
         }
 
@@ -143,10 +147,25 @@ public class MovieActivity extends AppCompatActivity {
                                 .url(urls[0])
                                 .build();
                 Response response = client.newCall(request).execute();
+
+                Request fetchVideoRequest = new Request.Builder().url(urls[1]).build();
+                Response fetchVideoResponse = client.newCall(fetchVideoRequest).execute();
+
                 if (response.isSuccessful()) {
                     String responseData = response.body().string();
                     JSONObject json = new JSONObject(responseData);
                     selectedMovie = new Movie(json);
+                }
+                else{
+                    isSuccess = false;
+                }
+
+                if (fetchVideoResponse.isSuccessful()){
+                    String data = fetchVideoResponse.body().string();
+                    JSONObject json = new JSONObject(data);
+                    JSONArray result = json.getJSONArray("results");
+                    if (result.length() > 0)
+                        selectedMovie.setMovieKey(result.getJSONObject(0));
                 }
                 else{
                     isSuccess = false;
@@ -172,15 +191,16 @@ public class MovieActivity extends AppCompatActivity {
             setPanelVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
 
+            if (!selectedMovie.getMovieKey().isEmpty()){
             YouTubePlayerFragment youtubeFragment = (YouTubePlayerFragment)
                     getFragmentManager().findFragmentById(R.id.youtubeFragment);
-            youtubeFragment.initialize("YOUR API KEY",
+            youtubeFragment.initialize(APIKEY,
                     new YouTubePlayer.OnInitializedListener() {
                         @Override
                         public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                             YouTubePlayer youTubePlayer, boolean b) {
                             // do any work here to cue video, play video, etc.
-                            youTubePlayer.cueVideo("5xVh-7ywKpE");
+                            youTubePlayer.cueVideo(selectedMovie.getMovieKey());
                         }
                         @Override
                         public void onInitializationFailure(YouTubePlayer.Provider provider,
@@ -188,6 +208,7 @@ public class MovieActivity extends AppCompatActivity {
 
                         }
                     });
+            }
         }
     }
 }

@@ -23,9 +23,11 @@ public class Movie {
     String status;
     String genres;
     String originalLanguage;
+    String movieKey;
     double voteAverage;
     Date releaseDate;
     int id;
+
 
 
     public Movie(JSONObject jsonObject) throws JSONException{
@@ -43,9 +45,21 @@ public class Movie {
             this.setReleaseDate(jsonObject.getString("release_date"));
          if (jsonObject.has("genres"))
             this.genres = jsonObject.getJSONArray("genres") != null ? ((JSONObject)jsonObject.getJSONArray("genres").get(0)).getString("name") : "";
+
     }
 
     public Movie(){}
+
+    public String getMovieKey() {
+        return movieKey;
+    }
+
+    public void setMovieKey(JSONObject jsonObject) {
+        try{
+            if (jsonObject.has("key"))
+            this.movieKey = jsonObject.getString("key");
+        }catch (Exception ex){}
+    }
 
     public int getId() {
         return id;

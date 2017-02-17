@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             tools:src="@mipmap/ic_launcher"
             android:id="@+id/ivMovieImage"
-            android:layout_alignBottom="@id/tvOverview"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/item_gap"
             android:scaleType="center" />
@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/ivMovieImage"
             android:layout_toEndOf="@+id/ivMovieImage"
+            android:layout_alignBottom="@id/ivMovieImage"
             android:id="@+id/tvOverview"
             android:layout_below="@+id/tvTitle"
             tools:text='A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.' />
