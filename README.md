@@ -33,13 +33,13 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 
-* [*] Added loading fragment while waiting for the info to load. 
+* [X] Added loading fragment while waiting for the info to load. 
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://imgur.com/a/SmyFf' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://imgur.com/a/ecJv6' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
