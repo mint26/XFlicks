@@ -10,13 +10,6 @@
         android:layout_height="wrap_content"
         tools:context="com.when0matters.xflicks.MovieActivity">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true" />
-
         <fragment
             android:id="@+id/youtubeFragment"
             android:layout_width="wrap_content"

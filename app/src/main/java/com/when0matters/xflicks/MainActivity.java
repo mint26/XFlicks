@@ -1,5 +1,6 @@
 package com.when0matters.xflicks;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Movie> movies;
     MovieArrayAdapter movieArrayAdapter;
     ListView lvItems;
-
+    ProgressDialog dialog;
     private static final String LIST_STATE = "listState";
     private Parcelable mListState = null;
 
@@ -38,10 +39,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         lvItems = (ListView) findViewById(R.id.lvItems);
         movies = new ArrayList<>();
-        loadData();
         movieArrayAdapter = new MovieArrayAdapter(this,movies, this.getResources().getConfiguration().orientation);
         lvItems.setOnItemClickListener(this);
         lvItems.setAdapter(movieArrayAdapter);
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading");
+        dialog.setCancelable(false);
+        dialog.setInverseBackgroundForced(false);
+        dialog.show();
+        loadData();
 
 
     }
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, MovieActivity.class);
         Movie movie = movies.get(position);
-        intent.putExtra("movieID", movie.getId());
+        intent.putExtra(getResources().getString(R.string.MOVIE_ID), movie.getId());
         startActivity(intent);
     }
 
@@ -90,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void loadData(){
-        String url="https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+        String url=String.format("https://api.themoviedb.org/3/movie/now_playing?api_key=%s", getResources().getString(R.string.API_KEY));
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(url,new JsonHttpResponseHandler(){
@@ -102,7 +109,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     movieJSONResults = response.getJSONArray("results");
                     movies.addAll(Movie.fromJSONArray(movieJSONResults));
                     movieArrayAdapter.notifyDataSetChanged();
-                    Log.d("Debug",movieJSONResults.toString());
+                    Log.d(getResources().getString(R.string.DEBUG),movieJSONResults.toString());
+                    dialog.hide();
 
                 }catch (JSONException ex){
                     ex.printStackTrace();
